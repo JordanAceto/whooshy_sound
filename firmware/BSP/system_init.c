@@ -24,6 +24,7 @@
 
 #include "GPIO.h"
 #include "RCC.h"
+#include "SPI1.h"
 #include "stm32l031xx.h"
 #include "SysTick.h"
 
@@ -78,6 +79,7 @@ void SystemInit(void)
     RCC_Init();
     SysTick_Init();
     GPIO_Init();
+    SPI1_Init();
 
     __enable_irq();
 }
