@@ -60,7 +60,6 @@ ASM_OBJECT_FILES := $(patsubst $(THIRD_PARTY_DIR)%.s,$(BIN_DIR)%.o,$(wildcard $(
 
 .PHONY: all
 all: $(C_OBJECT_FILES) $(BIN_DIR)
-	$(COMPILER) $(C_FLAGS) $(SRC_DIR)$(TARGET).c -o $(BIN_DIR)$(TARGET).o
 	make $(BIN_DIR)$(TARGET).bin
 
 $(C_OBJECT_FILES): | $(BIN_DIR)
@@ -87,7 +86,6 @@ $(BIN_DIR)$(TARGET).bin: $(BIN_DIR)$(TARGET).elf
 	$(OBJECT_DUMP) -D $(BIN_DIR)$(TARGET).elf > $(BIN_DIR)$(TARGET).list
 
 write: $(BIN_DIR)$(TARGET).bin
-	st-flash erase
 	st-flash --reset write $(BIN_DIR)$(TARGET).bin 0x08000000
 
 # if ./bin/ does not exist, create the directory

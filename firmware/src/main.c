@@ -1,14 +1,15 @@
 
-#include "lookup_tables.h"
+#include "stm32l031xx.h"
+#include "SysTick.h"
 
 int main(void)
 {
-    int i = 0;
 
     while (1)
     {
-        volatile int j = SINE_LUT[i];
-        i++;
+        // toggle PA6 as a "hello world"
+        GPIOA->ODR ^= GPIO_ODR_OD6;
+        SysTick_Delay_mSec(100);
     }
 
     return 0;
