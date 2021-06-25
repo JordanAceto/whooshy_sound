@@ -34,6 +34,20 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| PRIVATE DEFINES
+--|----------------------------------------------------------------------------|
+*/
+
+/*
+--| NAME: GPIO_MODER_INIT_CONSTANT 
+--| DESCRIPTION: initializations constant for GPIOA MODER register
+--| Sets all GPIO pins to their desired functions
+--| TYPE: uint32_t
+*/
+#define GPIO_MODER_INIT_CONSTANT (0xEBFF99FFu)
+
+/*
+--|----------------------------------------------------------------------------|
 --| PUBLIC FUNCTION DEFINITIONS
 --|----------------------------------------------------------------------------|
 */
@@ -43,17 +57,9 @@ void GPIO_Init(void)
     // enable clock control for GPIO port A
     RCC->IOPENR |= RCC_IOPENR_IOPAEN;
 
-    const uint32_t gpio_moder_init = (GPIO_MODER_MODE0_0 | GPIO_MODER_MODE0_1) | // pin 0 analog
-                                     (GPIO_MODER_MODE1_0 | GPIO_MODER_MODE1_1) | // pin 1 analog
-                                     (GPIO_MODER_MODE2_0 | GPIO_MODER_MODE2_1) | // pin 2 analog
-                                     (GPIO_MODER_MODE4_1) |                      // pin 4 alt (SPI NSS)
-                                     (GPIO_MODER_MODE5_1) |                      // pin 5 alt (SPI SCK)
-                                     (GPIO_MODER_MODE7_1);                       // pin 7 alt (SPI MOSI)
-
     // set the pinmodes
-    GPIOA->MODER |= gpio_moder_init;
+    GPIOA->MODER = GPIO_MODER_INIT_CONSTANT;
 
-    // set temporary debug pin PA6 to output
-    GPIOA->MODER &= ~GPIO_MODER_MODE6_Msk;
-    GPIOA->MODER |= GPIO_MODER_MODE6_0;
+    // drive the SPI CS pin high
+    GPIOA->BSRR = GPIO_BSRR_BS_4;
 }
