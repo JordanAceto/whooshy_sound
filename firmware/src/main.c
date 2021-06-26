@@ -1,4 +1,5 @@
 
+#include "lookup_tables.h"
 #include "MCP4822.h"
 #include "stm32l031xx.h"
 #include "SysTick.h"
@@ -13,11 +14,13 @@ int main(void)
         // toggle PA6
         GPIOA->ODR ^= GPIO_ODR_OD6;
 
-        // write phase shifted ramps to the DAC channels
+        // write a ramp to one DAC channel
         MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, ramp);
-        MCP4822_Write(MCP4822_CHANNEL_B, MCP4822_GAIN_1x, ramp + (1u << 11));
+
+        // write a sine wave to the other DAC channel
+        MCP4822_Write(MCP4822_CHANNEL_B, MCP4822_GAIN_1x, SINE_LUT[ramp >> 2]);
         ramp++;
-        ramp %= 0xFFFu;
+        ramp %= MCP4822_FULL_SCALE;
 
         SysTick_Delay_mSec(1);
     }
