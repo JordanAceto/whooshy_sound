@@ -32,6 +32,7 @@
 #include "lookup_tables.h"
 #include "PRNG.h"
 #include <stdbool.h>
+#include "wave_scanner.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -211,28 +212,6 @@ Assumptions/Limitations:
 static uint16_t get_random(uint32_t phase_accumulator);
 
 /*------------------------------------------------------------------------------
-Function Name:
-    crossfade
-
-Function Description:
-    Crossfade between the wave values in the given array.
-
-Parameters:
-    arr_of_waves: the array of waveshapes to crossfade between.
-    num_waves: the number of waves in the array.
-    xfade: the crossfade setting, low values will result in the first wave in 
-    the array, high values will result in the last thing in the array being 
-    returned.
-
-Returns:
-    uint16_t: the crossfaded value of the given waves.
-
-Assumptions/Limitations:
-    Assumes that arr_of_waves is at least num_waves long.
-------------------------------------------------------------------------------*/
-static uint16_t crossfade(uint16_t *arr_of_waves, uint16_t num_waves, uint16_t xfade);
-
-/*------------------------------------------------------------------------------
 Funciton Name:
     Linear_Interpolation
 
@@ -338,7 +317,7 @@ void Caclulate_LFO_Waveshapes(LFO_t * p_LFO)
     p_LFO->output[LFO_WAVE_RANDOM]   = get_random(p_LFO->phase_accumulator);
 
     // crossfade between the four actual waveshapes
-    p_LFO->output[LFO_WAVE_CROSSFADED] = crossfade(p_LFO->output, 4u, p_LFO->input[LFO_INPUT_TYPE_WAVE_SCAN]);
+    p_LFO->output[LFO_WAVE_CROSSFADED] = wave_scanner_xfade(p_LFO->output, 4u, p_LFO->input[LFO_INPUT_TYPE_WAVE_SCAN]);
 }
 
 static uint16_t get_sin(uint32_t phase_accumulator)
@@ -374,6 +353,7 @@ static uint16_t get_square(uint32_t phase_accumulator)
 
 static uint16_t get_random(uint32_t phase_accumulator)
 {
+    // TODO: these can't be static, they need to belong to a specific LFO instance
     static uint16_t random_sample;
     static uint32_t last_dt_accum;
 
@@ -393,13 +373,7 @@ static uint16_t get_random(uint32_t phase_accumulator)
         last_dt_accum = double_time_accum;
     }
 
-    return random_sample;
-}
-
-static uint16_t crossfade(uint16_t *arr_of_waves, uint16_t num_waves, uint16_t xfade)
-{
-    // TODO: implement the crossfader
-    return 0u;
+    return random_sample & LFO_OUTPUT_FULL_SCALE;
 }
 
 uint16_t Linear_Interpolation(uint16_t y1, uint16_t y2, uint32_t fraction)
