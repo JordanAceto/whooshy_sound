@@ -30,6 +30,8 @@
 
 #include "LFO.h"
 #include "lookup_tables.h"
+#include "PRNG.h"
+#include <stdbool.h>
 
 /*
 --|----------------------------------------------------------------------------|
@@ -341,16 +343,13 @@ void Caclulate_LFO_Waveshapes(LFO_t * p_LFO)
 
 static uint16_t get_sin(uint32_t phase_accumulator)
 {
-    // the current LUT index
-    const uint16_t LUT_index = phase_accumulator >> NUM_FRACTIONAL_BITS_IN_ACCUMULATOR;
-
-    // the next LUT index for interpolation, clamps at the max index to avoid bad behavior
-    const uint16_t next_idx = (LUT_index + 1u) % SINE_LOOK_UP_TABLE_SIZE;
+    const uint16_t LUT_idx = phase_accumulator >> NUM_FRACTIONAL_BITS_IN_ACCUMULATOR;
+    const uint16_t next_LUT_idx = (LUT_idx + 1u) % SINE_LOOK_UP_TABLE_SIZE;
 
     // the fractional part of the phase accumulator, used in interpolation
     const uint32_t accumulator_fraction = phase_accumulator & ACCUMULATOR_FRACTION_MASK;
 
-    return Linear_Interpolation(SINE_LUT[LUT_index], SINE_LUT[next_idx], accumulator_fraction);
+    return Linear_Interpolation(SINE_LUT[LUT_idx], SINE_LUT[next_LUT_idx], accumulator_fraction);
 }
 
 static uint16_t get_tri(uint32_t phase_accumulator)
@@ -375,10 +374,27 @@ static uint16_t get_square(uint32_t phase_accumulator)
 
 static uint16_t get_random(uint32_t phase_accumulator)
 {
-    // TODO: implement the random waveshaper
-    return 0u;
-}
+    static uint16_t random_sample;
+    static uint32_t last_dt_accum;
 
+    // It feels better if the random shaper triggers a new random sample at
+    // twice the base phase accumulator frequency
+    const uint32_t double_time_accum = phase_accumulator << 2u;
+
+    const bool accum_rolled_over = double_time_accum < last_dt_accum;
+
+    if (accum_rolled_over)
+    {
+        random_sample = PRNG_next_rand();
+        last_dt_accum = 0u;
+    }
+    else
+    {
+        last_dt_accum = double_time_accum;
+    }
+
+    return random_sample;
+}
 
 static uint16_t crossfade(uint16_t *arr_of_waves, uint16_t num_waves, uint16_t xfade)
 {

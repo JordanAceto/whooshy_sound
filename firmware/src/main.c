@@ -18,8 +18,8 @@ int main(void)
     {
         LFO_Tick(&lfo);
 
-        MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, LFO_get_output(&lfo, LFO_WAVE_TRIANGLE));
-        MCP4822_Write(MCP4822_CHANNEL_B, MCP4822_GAIN_1x, LFO_get_output(&lfo, LFO_WAVE_SINE));
+        MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, LFO_get_output(&lfo, LFO_WAVE_RANDOM));
+        MCP4822_Write(MCP4822_CHANNEL_B, MCP4822_GAIN_1x, LFO_get_output(&lfo, LFO_WAVE_SQUARE));
 
         SysTick_Delay_mSec(1);
     }
