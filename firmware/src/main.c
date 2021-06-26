@@ -1,26 +1,25 @@
 
-#include "lookup_tables.h"
+#include "LFO.h"
 #include "MCP4822.h"
-#include "stm32l031xx.h"
 #include "SysTick.h"
 
 int main(void)
 {
 
-    uint16_t ramp = 0u;
+    LFO_t lfo;
+
+    // 1kHz sample rate as a simple test using delay to schedule
+    LFO_Initialize(&lfo, 1000);
+
+    // set the LFO to 5Hz (5000mHz)
+    LFO_set_input(&lfo, LFO_INPUT_TYPE_FREQ_mHz, 5000u);
 
     while (1)
     {
-        // toggle PA6
-        GPIOA->ODR ^= GPIO_ODR_OD6;
+        LFO_Tick(&lfo);
 
-        // write a ramp to one DAC channel
-        MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, ramp);
-
-        // write a sine wave to the other DAC channel
-        MCP4822_Write(MCP4822_CHANNEL_B, MCP4822_GAIN_1x, SINE_LUT[ramp >> 2]);
-        ramp++;
-        ramp %= MCP4822_FULL_SCALE;
+        MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, LFO_get_output(&lfo, LFO_WAVE_TRIANGLE));
+        MCP4822_Write(MCP4822_CHANNEL_B, MCP4822_GAIN_1x, LFO_get_output(&lfo, LFO_WAVE_SINE));
 
         SysTick_Delay_mSec(1);
     }
