@@ -18,7 +18,7 @@ from matplotlib import pyplot as plt
 HEADER_OUTPUT_FILE_PATH = "../lib/lookup_tables.h"
 SOURCE_OUTPUT_FILE_PATH = "../lib/lookup_tables.c"
 
-# the resolution of the sine LUT
+# the resolution of the sine LUT, matches the DAC used by the system
 SIN_RESOLUTION_IN_BITS = 12
 
 # the full scale value of the sine LUT
@@ -59,18 +59,18 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    '--EXPO_MAP_MIN', 
-    help='the minimum value of the exponential mapping LUT, default 30 second cycle min',
+    '--EXPO_MAP_MIN_mHz', 
+    help='the minimum value of the exponential mapping LUT in millihertz, default ~30 second cycle min',
     nargs='?',
-    default=1/30,
+    default=1000//30,
     type=float
 )
 
 parser.add_argument(
-    '--EXPO_MAP_MAX', 
-    help='the maximum value of the exponential mapping LUT, default 50Hz max',
+    '--EXPO_MAP_MAX_mHz', 
+    help='the maximum value of the exponential mapping LUT in millihertz, default 50Hz max',
     nargs='?',
-    default=50,
+    default=50000,
     type=float
 )
 
@@ -102,7 +102,7 @@ def get_expo_map_lut(lut_size, curvature, min_val, max_val):
         max_val (number): the maximum value at the end of the LUT.
 
     returns:
-        lookup table: a list of floating point numbers representing an exponential 
+        lookup table: a list of positive integers representing an exponential 
         mapping from min to max, with amount of curviness specified by the given
         parameter and length lut_size.
     '''
@@ -112,7 +112,7 @@ def get_expo_map_lut(lut_size, curvature, min_val, max_val):
     raw_exp = np.exp(X) 
     exp_0_to_1 = (raw_exp - raw_exp.min()) / (raw_exp - raw_exp.min()).max()
     scaled_exp = (exp_0_to_1 * (max_val - min_val)) + min_val
-    return scaled_exp
+    return scaled_exp.astype(int)
 
 def generate_lookup_tables():
     '''
@@ -126,12 +126,12 @@ def generate_lookup_tables():
 #include <stdint.h>\n\n'
 
     sine_LUT = get_sine_lut(args.SINE_LUT_SIZE, SIN_FULL_SCALE_VALUE)
-    sine_LUT_comment = f'// the sine LUT, range: [{sine_LUT.min()}, {sine_LUT.max()}]\n'
+    sine_LUT_comment = f'// the sine LUT, range: [{sine_LUT.min()}, {sine_LUT.max()}], centered around {sine_LUT[0]}\n'
     sine_LUT_type = f'const uint16_t SINE_LUT[{args.SINE_LUT_SIZE}]'
 
-    expo_LUT = get_expo_map_lut(args.EXPO_MAP_LUT_SIZE, args.EXPO_MAP_CURVE, args.EXPO_MAP_MIN, args.EXPO_MAP_MAX)
-    expo_LUT_comment = f'// the exponential mapping LUT, range: [{expo_LUT.min()}, {expo_LUT.max()}]\n'
-    expo_LUT_type = f'const float EXPO_MAPPING_LUT[{args.EXPO_MAP_LUT_SIZE}]'
+    expo_LUT = get_expo_map_lut(args.EXPO_MAP_LUT_SIZE, args.EXPO_MAP_CURVE, args.EXPO_MAP_MIN_mHz, args.EXPO_MAP_MAX_mHz)
+    expo_LUT_comment = f'// the exponential mapping LUT, range: [{expo_LUT.min()}, {expo_LUT.max()}], units: millihertz\n'
+    expo_LUT_type = f'const uint16_t EXPO_MAPPING_LUT_mHz[{args.EXPO_MAP_LUT_SIZE}]'
 
     type_end = ";\n\n"
 
@@ -173,12 +173,12 @@ if (args.action == 'plot-sin'):
 
 elif (args.action == 'plot-exp'):
 
-    expo_lut = get_expo_map_lut(args.EXPO_MAP_LUT_SIZE, args.EXPO_MAP_CURVE, args.EXPO_MAP_MIN, args.EXPO_MAP_MAX)
+    expo_lut = get_expo_map_lut(args.EXPO_MAP_LUT_SIZE, args.EXPO_MAP_CURVE, args.EXPO_MAP_MIN_mHz, args.EXPO_MAP_MAX_mHz)
 
     plt.plot(expo_lut)
 
     plt.suptitle(f"Exponential mapping lookup table with {args.EXPO_MAP_LUT_SIZE} points")
-    plt.title(f"Min value: {expo_lut.min():.3f} Hz, Max value: {expo_lut.max():.3f} Hz")
+    plt.title(f"Min value: {expo_lut.min()} mHz, Max value: {expo_lut.max()} mHz")
     plt.xlabel("LUT index")
     plt.ylabel("value (Hz)")
 
