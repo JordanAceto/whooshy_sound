@@ -24,6 +24,7 @@ BIN_DIR         = ./bin/
 OPTIONS += $(MCU)
 OPTIONS += -Os
 OPTIONS += -Wall
+OPTIONS += -Wextra
 OPTIONS += -fdata-sections
 OPTIONS += -ffunction-sections
 

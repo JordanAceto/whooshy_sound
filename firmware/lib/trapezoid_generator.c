@@ -51,7 +51,7 @@ uint16_t get_trapezoid(uint16_t input, uint16_t width, uint16_t center, uint16_t
         output = 0;
     }
 
-    if (TRAPEZOID_FULL_SCALE < output)
+    if (TRAPEZOID_FULL_SCALE < (uint32_t)output)
     {
         output = TRAPEZOID_FULL_SCALE;
     }
