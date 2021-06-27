@@ -17,6 +17,7 @@
 --|----------------------------------------------------------------------------|
 */
 
+#include "RCC.h"
 #include "stm32l031xx.h"
 #include "SysTick.h"
 
@@ -49,13 +50,6 @@
 --| PRIVATE VARIABLES
 --|----------------------------------------------------------------------------|
 */
-
-/*
---| NAME: SystemCoreClockFreq 
---| DESCRIPTION: the frequency of the system code clock.
---| TYPE: uint32_t
-*/
-const uint32_t SystemCoreClockFreq = (uint32_t)32E6;
 
 /*
 --| NAME: mSec_since_reset 
@@ -98,7 +92,7 @@ void SysTick_Handler(void);
 void SysTick_Init(void)
 {
     // set the load register such that the SysTick fires at 1kHz
-    const uint32_t load_val = (SystemCoreClockFreq / 1000u) - 1u;
+    const uint32_t load_val = (SYSTEM_CORE_CLOCK / 1000u) - 1u;
     SysTick->LOAD = load_val;
 
     // reset the SysTick current value
