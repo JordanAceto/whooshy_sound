@@ -26,7 +26,7 @@
 #include "RCC.h"
 #include "SPI1.h"
 #include "stm32l031xx.h"
-#include "SysTick.h"
+#include "TIM2.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -74,12 +74,8 @@ void SystemInit(void);
 
 void SystemInit(void)
 {
-    __disable_irq();
-
     RCC_Init();
-    SysTick_Init();
     GPIO_Init();
     SPI1_Init();
-
-    __enable_irq();
+    TIM2_Init();
 }
