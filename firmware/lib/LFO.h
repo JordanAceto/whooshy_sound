@@ -120,11 +120,13 @@ typedef enum LFO_Wave_Type
 typedef struct LFO_Type
 {
     uint16_t input[NUM_LFO_INPUT_TYPES];
-
     uint16_t output[NUM_LFO_WAVE_TYPES];
 
     uint32_t phase_accumulator;
     uint32_t tuning_word;
+
+    // used in updating the random output
+    uint32_t last_accum_random_trig;
 
     uint32_t sample_rate;
 

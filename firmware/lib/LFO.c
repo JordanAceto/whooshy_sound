@@ -197,11 +197,10 @@ Function Name:
     get_random
 
 Function Description:
-    Get the value of the random wave based on the given phase accumulator value.
+    Get the value of the next random sample based on the given LFO state.
 
 Parameters:
-    phase_accumulator: the value of the phase accumulator to convert to a random
-    sample.
+    p_LFO: pointer to the LFO which holds the random signal of interest.
 
 Returns:
     uint16_t: the current sample of the random wave.
@@ -209,7 +208,7 @@ Returns:
 Assumptions/Limitations:
     None.
 ------------------------------------------------------------------------------*/
-static uint16_t get_random(uint32_t phase_accumulator);
+static uint16_t get_random(LFO_t *p_LFO);
 
 /*------------------------------------------------------------------------------
 Funciton Name:
@@ -314,10 +313,10 @@ void Caclulate_LFO_Waveshapes(LFO_t * p_LFO)
     p_LFO->output[LFO_WAVE_TRIANGLE] = get_tri(p_LFO->phase_accumulator);
     p_LFO->output[LFO_WAVE_SINE]     = get_sin(p_LFO->phase_accumulator);
     p_LFO->output[LFO_WAVE_SQUARE]   = get_square(p_LFO->phase_accumulator);
-    p_LFO->output[LFO_WAVE_RANDOM]   = get_random(p_LFO->phase_accumulator);
+    p_LFO->output[LFO_WAVE_RANDOM]   = get_random(p_LFO);
 
     // crossfade between the four actual waveshapes
-    p_LFO->output[LFO_WAVE_CROSSFADED] = wave_scanner_xfade(p_LFO->output, 4u, p_LFO->input[LFO_INPUT_TYPE_WAVE_SCAN]);
+    p_LFO->output[LFO_WAVE_CROSSFADED] = wave_scanner_xfade(p_LFO->output, NUM_LFO_WAVE_TYPES - 1u, p_LFO->input[LFO_INPUT_TYPE_WAVE_SCAN]);
 }
 
 static uint16_t get_sin(uint32_t phase_accumulator)
@@ -351,29 +350,28 @@ static uint16_t get_square(uint32_t phase_accumulator)
     return phase_accumulator < ACCUMULATOR_HALF_SCALE ? LFO_OUTPUT_FULL_SCALE : 0u;
 }
 
-static uint16_t get_random(uint32_t phase_accumulator)
+static uint16_t get_random(LFO_t *p_LFO)
 {
-    // TODO: these can't be static, they need to belong to a specific LFO instance
-    static uint16_t random_sample;
-    static uint32_t last_dt_accum;
+    uint16_t random_sample;
 
     // It feels better if the random shaper triggers a new random sample at
     // twice the base phase accumulator frequency
-    const uint32_t double_time_accum = phase_accumulator << 2u;
+    const uint32_t double_time_accum = p_LFO->phase_accumulator << 2u;
 
-    const bool accum_rolled_over = double_time_accum < last_dt_accum;
+    const bool accum_rolled_over = double_time_accum < p_LFO->last_accum_random_trig;
 
     if (accum_rolled_over)
     {
-        random_sample = PRNG_next_rand();
-        last_dt_accum = 0u;
+        random_sample = PRNG_next_rand() & LFO_OUTPUT_FULL_SCALE;
+         p_LFO->last_accum_random_trig = 0u;
     }
     else
     {
-        last_dt_accum = double_time_accum;
+        random_sample = p_LFO->output[LFO_WAVE_RANDOM];
+         p_LFO->last_accum_random_trig = double_time_accum;
     }
 
-    return random_sample & LFO_OUTPUT_FULL_SCALE;
+    return random_sample;
 }
 
 uint16_t Linear_Interpolation(uint16_t y1, uint16_t y2, uint32_t fraction)
