@@ -22,6 +22,8 @@
 --|----------------------------------------------------------------------------|
 */
 
+#include "ADC1.h"
+#include "DMA.h"
 #include "GPIO.h"
 #include "RCC.h"
 #include "SPI1.h"
@@ -78,4 +80,6 @@ void SystemInit(void)
     GPIO_Init();
     SPI1_Init();
     TIM2_Init();
+    ADC1_Init();
+    DMA_Init();
 }

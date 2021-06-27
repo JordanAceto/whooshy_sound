@@ -1,19 +1,20 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   ADC.c provides the implementation for initializing the ADC.
---|   
+--|   DMA.h provides the interface for initializing the Direct Memory Access
+--|   controller.
+--|
+--|   The DMA controller delivers ADC readings to a buffer in the background.
 --|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   STM32L0x1 Reference Manual, page 167 (RCC)
---|   STM32L0x1 Reference Manual, page 278 (ADC)
+--|   STM32F334xx Reference Manual, page 241
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef ADC_H_INCLUDED
-#define ADC_H_INCLUDED
+#ifndef DMA_H_INCLUDED
+#define DMA_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -23,10 +24,10 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    ADC_Init
+    DMA_Init
 
 Function Description:
-    Perform initialization of the ADC.
+    Perform initialization of DMA.
 
 Parameters:
     None
@@ -35,8 +36,8 @@ Returns:
     None
 
 Assumptions/Limitations:
-    Assumed that this will be called before using the ADC.
+    Assumed that this will be called before using DMA.
 ------------------------------------------------------------------------------*/
-void ADC_Init(void);
+void DMA_Init(void);
 
 #endif
