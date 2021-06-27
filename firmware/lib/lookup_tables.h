@@ -6,9 +6,9 @@
 #include <stdint.h>
 
 // the sine LUT, range: [0, 4094]
-const uint16_t SINE_LUT[1024];
+extern const uint16_t SINE_LUT[1024];
 
 // the exponential mapping LUT, range: [0.03333333333333333, 50.0]
-const float EXPO_MAPPING_LUT[1024];
+extern const float EXPO_MAPPING_LUT[1024];
 
 #endif

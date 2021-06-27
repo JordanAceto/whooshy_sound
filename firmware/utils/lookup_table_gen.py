@@ -137,7 +137,7 @@ def generate_lookup_tables():
 
     h_file_end = '#endif'
 
-    h_file_content = h_file_start + sine_LUT_comment + sine_LUT_type + type_end + expo_LUT_comment + expo_LUT_type + type_end + h_file_end
+    h_file_content = h_file_start + sine_LUT_comment + "extern " + sine_LUT_type + type_end + expo_LUT_comment + "extern " + expo_LUT_type + type_end + h_file_end
 
     with open(HEADER_OUTPUT_FILE_PATH, 'w') as w:
         w.write(h_file_content)
