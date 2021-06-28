@@ -1,0 +1,3 @@
+[submodule "hardware/VCF_plug_in_boards"]
+	path = hardware/VCF_plug_in_boards
+	url = https://github.com/JordanAceto/VCF_plug_in_boards.git
