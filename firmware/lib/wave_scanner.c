@@ -26,13 +26,13 @@
 --|----------------------------------------------------------------------------|
 */
 
-uint16_t wave_scanner_xfade(uint16_t *wave, uint16_t num_waves, uint16_t xfade)
+int16_t wave_scanner_xfade(int16_t *wave, uint16_t num_waves, uint16_t xfade)
 {
     const uint16_t NUM_SEGMENTS = (num_waves * 2u) - 1;
     const uint16_t TRAP_WIDTH = TRAPEZOID_FULL_SCALE / NUM_SEGMENTS;
     const uint16_t TRAP_SLOPE = NUM_SEGMENTS;
 
-    uint16_t retval = 0u;
+    int16_t retval = 0u;
 
     for (int i = 0; i < num_waves; i++)
     {

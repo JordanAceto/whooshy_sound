@@ -47,19 +47,18 @@
 #define LFO_OUTPUT_NUM_BITS (12u)
 
 /*
---| NAME: LFO_OUTPUT_FULL_SCALE
---| DESCRIPTION: the full scale output of the LFO, the unsigned LFO outputs 
---|              range from 0 to full scale
---| TYPE: uint
+--| NAME: LFO_OUTPUT_MAX_VAL
+--| DESCRIPTION: the maximum value of the LFO output
+--| TYPE: int
 */
-#define LFO_OUTPUT_FULL_SCALE ((1u << LFO_OUTPUT_NUM_BITS) - 1u)
+#define LFO_OUTPUT_MAX_VAL ((1 << (LFO_OUTPUT_NUM_BITS - 1)) - 1)
 
 /*
---| NAME: LFO_OUTPUT_HALF_SCALE
---| DESCRIPTION: the midpoint of the unsigned LFO
---| TYPE: uint
+--| NAME: LFO_OUTPUT_MIN_VAL
+--| DESCRIPTION: the minimum value of the LFO output
+--| TYPE: int
 */
-#define LFO_OUTPUT_HALF_SCALE (LFO_OUTPUT_FULL_SCALE >> 1u)
+#define LFO_OUTPUT_MIN_VAL (-(LFO_OUTPUT_MAX_VAL))
 
 /*
 --| NAME: LFO_FREQ_mHz_DEFAULT_VALUE
@@ -120,7 +119,7 @@ typedef enum LFO_Wave_Type
 typedef struct LFO_Type
 {
     uint16_t input[NUM_LFO_INPUT_TYPES];
-    uint16_t output[NUM_LFO_WAVE_TYPES];
+    int16_t output[NUM_LFO_WAVE_TYPES];
 
     uint32_t phase_accumulator;
     uint32_t tuning_word;
@@ -221,6 +220,6 @@ Returns:
 Assumptions/Limitations:
     Assumed that the wave_type is a valis LFO_wave_t enumeration.
 ------------------------------------------------------------------------------*/
-uint16_t LFO_get_output(LFO_t * p_LFO, LFO_wave_t wave_type);
+int16_t LFO_get_output(LFO_t * p_LFO, LFO_wave_t wave_type);
 
 #endif

@@ -5,8 +5,8 @@
 
 #include <stdint.h>
 
-// the sine LUT, range: [0, 4094], centered around 2047
-extern const uint16_t SINE_LUT[1024];
+// the sine LUT, range: [-2047, 2047], centered around 0
+extern const int16_t SINE_LUT[1024];
 
 // the exponential mapping LUT, range: [33, 50000], units: millihertz
 extern const uint16_t EXPO_MAPPING_LUT_mHz[1024];

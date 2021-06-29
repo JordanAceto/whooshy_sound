@@ -1,9 +1,59 @@
+/*
+--|----------------------------------------------------------------------------|
+--| FILE DESCRIPTION:
+--|   main.c provides the main application entry point, called from the assembly
+--|   startup routine.
+--|
+--|----------------------------------------------------------------------------|
+--| REFERENCES:
+--|   None
+--|
+--|----------------------------------------------------------------------------|
+*/
+
+/*
+--|----------------------------------------------------------------------------|
+--| INCLUDE FILES
+--|----------------------------------------------------------------------------|
+*/
 
 #include "ADC1.h"
 #include "lookup_tables.h"
 #include "LFO.h"
 #include "MCP4822.h"
 #include "TIM2.h"
+
+/*
+--|----------------------------------------------------------------------------|
+--| PRIVATE FUNCTION PROTOTYPES
+--|----------------------------------------------------------------------------|
+*/
+
+/*------------------------------------------------------------------------------
+Function Name:
+    main
+
+Function Description:
+    The main application.
+
+Parameters:
+    None
+
+Returns:
+    int (never reached)
+
+Assumptions/Limitations:
+    Assumed that main will be called from the assembly startup routine after all
+    system initialization is complete. Do not manually call this function.
+    This function enters an infinite loop that is not expected to terminate.
+------------------------------------------------------------------------------*/
+int main(void);
+
+/*
+--|----------------------------------------------------------------------------|
+--| PRIVATE FUNCTION DEFINITIONS
+--|----------------------------------------------------------------------------|
+*/
 
 int main(void)
 {
@@ -26,11 +76,14 @@ int main(void)
             // set the LFO crossfaded waveshape
             LFO_set_input(&lfo_1, LFO_INPUT_TYPE_WAVE_SCAN, adc1_raw_input[ADC1_RAW_INPUT_LFO_SHAPE] << 4u);
 
-            // set the LFO level
-            const uint16_t out_val = LFO_get_output(&lfo_1, LFO_WAVE_CROSSFADED) * adc1_raw_input[ADC1_RAW_INPUT_LFO_LEVEL] / ADC1_FULL_SCALE;
+            // the raw bipolar crossfaded LFO signal
+            const int16_t raw_LFO = LFO_get_output(&lfo_1, LFO_WAVE_CROSSFADED);
 
-            // write the LFO via the DAC
-            MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, out_val);
+            // the LFO signal scaled for the DAC, it now takes up 12 bits and is non-negative
+            const uint16_t scaled_LFO = (raw_LFO * adc1_raw_input[ADC1_RAW_INPUT_LFO_LEVEL] / (int16_t)ADC1_FULL_SCALE) + LFO_OUTPUT_MAX_VAL;
+
+            // write the unsigned LFO signal via the DAC
+            MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, scaled_LFO);
 
             // GPIOA->BSRR |= GPIO_BSRR_BR_6;
         }
@@ -38,3 +91,4 @@ int main(void)
 
     return 0;
 }
+

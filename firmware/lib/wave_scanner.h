@@ -47,6 +47,6 @@ Returns:
 Assumptions/Limitations:
     Assumes that arr_of_waves is at least num_waves long.
 ------------------------------------------------------------------------------*/
-uint16_t wave_scanner_xfade(uint16_t *wave, uint16_t num_waves, uint16_t xfade);
+int16_t wave_scanner_xfade(int16_t *wave, uint16_t num_waves, uint16_t xfade);
 
 #endif

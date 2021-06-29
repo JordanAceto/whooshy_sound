@@ -88,7 +88,7 @@ def get_sine_lut(lut_size, full_scale):
         lookup table: a list of integer values for one cycle of a sine 
         wave with length lut_size ranging from 0 to full_scale.
     '''
-    return ((np.sin(np.linspace(0, 2*np.pi, lut_size)) + 1) * full_scale / 2).astype(int)
+    return (np.sin(np.linspace(0, 2*np.pi, lut_size)) * full_scale / 2).astype(int)
 
 def get_expo_map_lut(lut_size, curvature, min_val, max_val):
     '''
@@ -127,7 +127,7 @@ def generate_lookup_tables():
 
     sine_LUT = get_sine_lut(args.SINE_LUT_SIZE, SIN_FULL_SCALE_VALUE)
     sine_LUT_comment = f'// the sine LUT, range: [{sine_LUT.min()}, {sine_LUT.max()}], centered around {sine_LUT[0]}\n'
-    sine_LUT_type = f'const uint16_t SINE_LUT[{args.SINE_LUT_SIZE}]'
+    sine_LUT_type = f'const int16_t SINE_LUT[{args.SINE_LUT_SIZE}]'
 
     expo_LUT = get_expo_map_lut(args.EXPO_MAP_LUT_SIZE, args.EXPO_MAP_CURVE, args.EXPO_MAP_MIN_mHz, args.EXPO_MAP_MAX_mHz)
     expo_LUT_comment = f'// the exponential mapping LUT, range: [{expo_LUT.min()}, {expo_LUT.max()}], units: millihertz\n'
