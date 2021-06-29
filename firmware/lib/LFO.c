@@ -149,12 +149,12 @@ Parameters:
     phase_accumulator: the value of the phase accumulator to convert to a sine.
 
 Returns:
-    uint16_t: the current sample of the sine wave.
+    int16_t: the current sample of the sine wave.
 
 Assumptions/Limitations:
     None.
 ------------------------------------------------------------------------------*/
-static uint16_t get_sin(uint32_t phase_accumulator);
+static int16_t get_sin(uint32_t phase_accumulator);
 
 /*------------------------------------------------------------------------------
 Function Name:
@@ -167,12 +167,12 @@ Parameters:
     phase_accumulator: the value of the phase accumulator to convert to a triangle.
 
 Returns:
-    uint16_t: the current sample of the triangle wave.
+    int16_t: the current sample of the triangle wave.
 
 Assumptions/Limitations:
     None.
 ------------------------------------------------------------------------------*/
-static uint16_t get_tri(uint32_t phase_accumulator);
+static int16_t get_tri(uint32_t phase_accumulator);
 
 /*------------------------------------------------------------------------------
 Function Name:
@@ -185,12 +185,12 @@ Parameters:
     phase_accumulator: the value of the phase accumulator to convert to a square.
 
 Returns:
-    uint16_t: the current sample of the square wave.
+    int16_t: the current sample of the square wave.
 
 Assumptions/Limitations:
     None.
 ------------------------------------------------------------------------------*/
-static uint16_t get_square(uint32_t phase_accumulator);
+static int16_t get_square(uint32_t phase_accumulator);
 
 /*------------------------------------------------------------------------------
 Function Name:
@@ -203,12 +203,12 @@ Parameters:
     p_LFO: pointer to the LFO which holds the random signal of interest.
 
 Returns:
-    uint16_t: the current sample of the random wave.
+    int16_t: the current sample of the random wave.
 
 Assumptions/Limitations:
     None.
 ------------------------------------------------------------------------------*/
-static uint16_t get_random(LFO_t *p_LFO);
+static int16_t get_random(LFO_t *p_LFO);
 
 /*------------------------------------------------------------------------------
 Funciton Name:
@@ -233,7 +233,7 @@ Returns:
 Assumptions/Limitations:
     None.
 ------------------------------------------------------------------------------*/
-static uint16_t Linear_Interpolation(uint16_t y1, uint16_t y2, uint32_t fraction);
+static int16_t Linear_Interpolation(int16_t y1, int16_t y2, uint32_t fraction);
 
 /*
 --|----------------------------------------------------------------------------|
@@ -243,14 +243,8 @@ static uint16_t Linear_Interpolation(uint16_t y1, uint16_t y2, uint32_t fraction
 
 void LFO_Initialize(LFO_t * p_LFO, uint32_t sample_rate)
 {
-    p_LFO->input[LFO_INPUT_TYPE_FREQ_mHz]   = LFO_FREQ_mHz_DEFAULT_VALUE;
+    p_LFO->input[LFO_INPUT_TYPE_FREQ_mHz]  = LFO_FREQ_mHz_DEFAULT_VALUE;
     p_LFO->input[LFO_INPUT_TYPE_WAVE_SCAN] = LFO_WAVE_SHAPE_DEFAULT_VALUE;
-
-    for (int i = 0; i < NUM_LFO_WAVE_TYPES; i++)
-    {
-        p_LFO->output[i] = LFO_OUTPUT_HALF_SCALE;
-    }
-
     p_LFO->sample_rate = sample_rate;
 }
 
@@ -271,7 +265,7 @@ void LFO_set_input(LFO_t * p_LFO, LFO_input_t input_type, uint16_t value)
     }
 }
 
-uint16_t LFO_get_output(LFO_t * p_LFO, LFO_wave_t wave_type)
+int16_t LFO_get_output(LFO_t * p_LFO, LFO_wave_t wave_type)
 {
     return p_LFO->output[wave_type];
 }
@@ -319,7 +313,7 @@ void Caclulate_LFO_Waveshapes(LFO_t * p_LFO)
     p_LFO->output[LFO_WAVE_CROSSFADED] = wave_scanner_xfade(p_LFO->output, NUM_LFO_WAVE_TYPES - 1u, p_LFO->input[LFO_INPUT_TYPE_WAVE_SCAN]);
 }
 
-static uint16_t get_sin(uint32_t phase_accumulator)
+static int16_t get_sin(uint32_t phase_accumulator)
 {
     const uint16_t LUT_idx = phase_accumulator >> NUM_FRACTIONAL_BITS_IN_ACCUMULATOR;
     const uint16_t next_LUT_idx = (LUT_idx + 1u) % SINE_LOOK_UP_TABLE_SIZE;
@@ -330,40 +324,46 @@ static uint16_t get_sin(uint32_t phase_accumulator)
     return Linear_Interpolation(SINE_LUT[LUT_idx], SINE_LUT[next_LUT_idx], accumulator_fraction);
 }
 
-static uint16_t get_tri(uint32_t phase_accumulator)
+static int16_t get_tri(uint32_t phase_accumulator)
 {
     // keep the triangle in-phase with the sine
     const uint32_t phase_shifted_accum = phase_accumulator + ACCUMULATOR_QUARTER_SCALE;
 
     if (phase_shifted_accum < ACCUMULATOR_HALF_SCALE)
     {
-        return phase_shifted_accum >> (ACCUMULATOR_BIT_WIDTH - LFO_OUTPUT_NUM_BITS - 1u);
+        return (phase_shifted_accum >> (ACCUMULATOR_BIT_WIDTH - LFO_OUTPUT_NUM_BITS - 1u)) - LFO_OUTPUT_MAX_VAL;
     }
     else
     {
-        return (ACCUMULATOR_FULL_SCALE - phase_shifted_accum) >> (ACCUMULATOR_BIT_WIDTH - LFO_OUTPUT_NUM_BITS - 1u);
+        return ((ACCUMULATOR_FULL_SCALE - phase_shifted_accum) >> (ACCUMULATOR_BIT_WIDTH - LFO_OUTPUT_NUM_BITS - 1u)) - LFO_OUTPUT_MAX_VAL;
     }
 }
 
-static uint16_t get_square(uint32_t phase_accumulator)
+
+static int16_t get_square(uint32_t phase_accumulator)
 {
-    return phase_accumulator < ACCUMULATOR_HALF_SCALE ? LFO_OUTPUT_FULL_SCALE : 0u;
+    return phase_accumulator < ACCUMULATOR_HALF_SCALE ? LFO_OUTPUT_MAX_VAL : LFO_OUTPUT_MIN_VAL;
 }
 
-static uint16_t get_random(LFO_t *p_LFO)
+static int16_t get_random(LFO_t *p_LFO)
 {
-    uint16_t random_sample;
-
     // It feels better if the random shaper triggers a new random sample at
     // twice the base phase accumulator frequency
     const uint32_t double_time_accum = p_LFO->phase_accumulator << 2u;
 
     const bool accum_rolled_over = double_time_accum < p_LFO->last_accum_random_trig;
 
+    int16_t random_sample;
+
     if (accum_rolled_over)
     {
-        random_sample = PRNG_next_rand() & LFO_OUTPUT_FULL_SCALE;
-         p_LFO->last_accum_random_trig = 0u;
+        // limit the number of bits used from the rng
+        random_sample = PRNG_next_rand() & ((1u << LFO_OUTPUT_NUM_BITS) - 1u);
+
+        // center the random signal around zero
+        random_sample -= LFO_OUTPUT_MAX_VAL;
+
+        p_LFO->last_accum_random_trig = 0u;
     }
     else
     {
@@ -374,11 +374,7 @@ static uint16_t get_random(LFO_t *p_LFO)
     return random_sample;
 }
 
-uint16_t Linear_Interpolation(uint16_t y1, uint16_t y2, uint32_t fraction)
+int16_t Linear_Interpolation(int16_t y1, int16_t y2, uint32_t fraction)
 {
-    // TODO: fix me
-    return y1;
-    // const uint32_t delta_y = y2 - y1;
-    // const uint32_t fractional_part = (fraction * delta_y) >> NUM_FRACTIONAL_BITS_IN_ACCUMULATOR;
-    // return y1 + fractional_part;
+    return y1 + (fraction * (y2 - y1)) / ACCUMULATOR_FRACTION_MASK;
 }
