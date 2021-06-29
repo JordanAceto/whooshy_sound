@@ -3,13 +3,13 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 8
+Sheet 7 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-15"
+Date "2021-06-29"
 Rev "0"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
-Comment2 "Licencse: CC by 4.0"
+Comment2 "License: CC by 4.0"
 Comment3 "Author: Jordan Aceto"
 Comment4 ""
 $EndDescr

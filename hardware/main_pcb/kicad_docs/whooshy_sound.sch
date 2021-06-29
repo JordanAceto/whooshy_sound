@@ -5,7 +5,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-15"
+Date "2021-06-29"
 Rev "0"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
@@ -73,6 +73,25 @@ F 3 "~" H 6450 4350 50  0001 C CNN
 	1    6450 4350
 	-1   0    0    -1  
 $EndComp
+$Sheet
+S 2150 3900 2000 1000
+U 60C8BB05
+F0 "cutoff_CV_generator" 50
+F1 "cutoff_CV_generator.sch" 50
+F2 "summed_cutoff_CV_out" O R 4150 4650 50 
+F3 "envelope_follower_audio_in" I L 2150 4100 50 
+F4 "ext_cutoff_CV_in" I L 2150 4350 50 
+F5 "expression_pedal_ring_current" O L 2150 4450 50 
+$EndSheet
+$Sheet
+S 2150 5900 2000 1000
+U 60CB527C
+F0 "resonance_CV_generator" 50
+F1 "resonance_CV_generator.sch" 50
+F2 "summed_resonance_CV_out" O R 4150 6300 50 
+F3 "ext_resonance_CV_in" I L 2150 6650 50 
+F4 "expression_pedal_ring_current" O L 2150 6750 50 
+$EndSheet
 $Sheet
 S 8500 5050 2000 1000
 U 60C8ED37
@@ -254,25 +273,6 @@ Wire Wire Line
 Connection ~ 6750 4500
 Wire Wire Line
 	6750 4500 6750 4550
-$Sheet
-S 2150 5900 2000 1000
-U 60CB527C
-F0 "resonance_CV_generator" 50
-F1 "resonance_CV_generator.sch" 50
-F2 "summed_resonance_CV_out" O R 4150 6300 50 
-F3 "ext_resonance_CV_in" I L 2150 6650 50 
-F4 "expression_pedal_ring_current" O L 2150 6750 50 
-$EndSheet
-$Sheet
-S 2150 3900 2000 1000
-U 60C8BB05
-F0 "cutoff_CV_generator" 50
-F1 "cutoff_CV_generator.sch" 50
-F2 "summed_cutoff_CV_out" O R 4150 4650 50 
-F3 "envelope_follower_audio_in" I L 2150 4100 50 
-F4 "ext_cutoff_CV_in" I L 2150 4350 50 
-F5 "expression_pedal_ring_current" O L 2150 4450 50 
-$EndSheet
 Wire Notes Line
 	6400 1850 5400 1850
 Wire Notes Line
