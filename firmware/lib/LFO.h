@@ -1,7 +1,7 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   LFO.h provides the types and interface for creating and using Low 
+--|   LFO.h provides the types and interface for creating and using Low
 --|   Frequency Oscillators.
 --|
 --|   The LFOs are created using the technique of Direct Digital Synthesis.
@@ -9,9 +9,9 @@
 --|   Triangle, Sine, Square, and Random waveshapes are simultaneously available,
 --|   as well as a crossfaded output. The crossfade output takes in a control
 --|   signal for fade position, which scans through the above waveshapers. The
---|   scan order is Triangle -> Sine -> Square -> Random. This order means that 
+--|   scan order is Triangle -> Sine -> Square -> Random. This order means that
 --|   as the user advances the scan position control from low to high, the LFO
---|   wave morphs from smooth triangle, to puffy triangle, to sine, to puffy 
+--|   wave morphs from smooth triangle, to puffy triangle, to sine, to puffy
 --|   sine, to square, to a random sample-and-hold-like signal.
 --|
 --|----------------------------------------------------------------------------|
@@ -142,7 +142,7 @@ Function Name:
     LFO_Initialize
 
 Function Description:
-    Initialize a given LFO struct by setting all input parameters to their 
+    Initialize a given LFO struct by setting all input parameters to their
     default values and setting the sample rate to the given value.
 
 Parameters:
@@ -164,10 +164,10 @@ Function Name:
     LFO_Tick
 
 Function Description:
-    Process one tick of a given LFO struct. During a "tick", the phase 
+    Process one tick of a given LFO struct. During a "tick", the phase
     accumulator is incremented and the current output level is set.
 
-    This function MUST be called periodically at the sample rate held by the 
+    This function MUST be called periodically at the sample rate held by the
     LFO that is passed in to this function.
 
 Parameters:
@@ -177,7 +177,7 @@ Returns:
     Mutates the fields of p_LFO
 
 Assumptions/Limitations:
-    If this function is not called periodically at the sample rate held by the 
+    If this function is not called periodically at the sample rate held by the
     LFO that is passed in, then the LFO frequency will be incorrect.
 ------------------------------------------------------------------------------*/
 void LFO_Tick(LFO_t * p_LFO);
@@ -198,7 +198,7 @@ Returns:
     Mutates the fields of p_LFO
 
 Assumptions/Limitations:
-    Assumed that the input_type is a valis LFO_input_t enumeration and that the
+    Assumed that the input_type is a valid LFO_input_t enumeration and that the
     given value is in range for the specified input.
 ------------------------------------------------------------------------------*/
 void LFO_set_input(LFO_t * p_LFO, LFO_input_t input_type, uint16_t value);
@@ -218,7 +218,7 @@ Returns:
     uin16_t: the current value of the given LFO waveshape.
 
 Assumptions/Limitations:
-    Assumed that the wave_type is a valis LFO_wave_t enumeration.
+    Assumed that the wave_type is a valid LFO_wave_t enumeration.
 ------------------------------------------------------------------------------*/
 int16_t LFO_get_output(LFO_t * p_LFO, LFO_wave_t wave_type);
 
