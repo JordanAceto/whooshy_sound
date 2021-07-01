@@ -1,11 +1,10 @@
-# Effects pedal for making whooshy sounds
+# Effects pedal for making whooshy filter and phaser sweeping sounds
 
-### This pedal accommodates various VCF plug-in boards, and contains rich modulation features.
+## This pedal accommodates various VCF plug-in boards, and contains rich modulation features.
 
-### This is just the start of a work in progress
-
-Next steps: 
-- make sure that the envelope follower goes right-way-round, meaning- in "normal" mode it should sweep up, and in "inverted" mode it should sweep down.
-- do some more tests of the envelope follower, these are tricky to make "feel good".
-- write code/evaluate the STM32L0 LFO.
-- evaluate the +/-12 volt DC-DC converter.
+### Features:
+- Guitar pedal style stomp box.
+- Can accept a wide variety of [filter plug-in boards](https://github.com/JordanAceto/VCF_plug_in_boards).
+- Manual frequency and resonance controls.
+- Digitally generated LFO with morphing waveshaper, smoothly crossfades from triangle to sine to square to sample & hold.
+- Analog envelope follower for when you want to quack and bwow instead of whoosh.
