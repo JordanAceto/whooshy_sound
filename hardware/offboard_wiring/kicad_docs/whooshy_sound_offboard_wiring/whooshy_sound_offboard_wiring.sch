@@ -1,0 +1,225 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Whooshy Sound offboard wiring"
+Date "2021-07-01"
+Rev "0"
+Comp ""
+Comment1 "creativecommons.org/licenses/by/4.0/"
+Comment2 "License: CC by 4.0"
+Comment3 "Author: Jordan Aceto"
+Comment4 ""
+$EndDescr
+$Comp
+L offboard_wiring:main_pcb P1
+U 1 1 60DDC99B
+P 5750 4750
+F 0 "P1" H 5750 4800 50  0000 C CNN
+F 1 "main_pcb" H 5750 4700 50  0000 C CNN
+F 2 "" H 5750 4850 50  0001 C CNN
+F 3 "" H 5750 4850 50  0001 C CNN
+	1    5750 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L offboard_wiring:audio_jack_switch J1
+U 1 1 60DDCE4F
+P 7800 1400
+F 0 "J1" H 7322 1468 50  0000 R CNN
+F 1 "audio_input" H 7322 1377 50  0000 R CNN
+F 2 "" H 7800 1450 50  0000 C CNN
+F 3 "" H 7800 1450 50  0000 C CNN
+	1    7800 1400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L offboard_wiring:audio_jack_trs J3
+U 1 1 60DDD63A
+P 2800 2600
+F 0 "J3" H 2300 2600 50  0000 R CNN
+F 1 "cutoff_CV" H 2300 2700 50  0000 R CNN
+F 2 "" H 2800 2550 50  0000 C CNN
+F 3 "" H 2800 2550 50  0000 C CNN
+	1    2800 2600
+	1    0    0    1   
+$EndComp
+$Comp
+L offboard_wiring:SWITCH-3PDT-PTH-STOMP S1
+U 1 1 60DDDAAE
+P 6700 1250
+F 0 "S1" H 6650 1520 45  0000 C CNN
+F 1 "bypass_switch" H 6650 1436 45  0000 C CNN
+F 2 "STOMP_SWITCH_3PDT" H 6700 1500 20  0001 C CNN
+F 3 "" H 6700 1250 50  0001 C CNN
+F 4 "SWCH-13197" H 6650 1447 60  0001 C CNN "Field4"
+	1    6700 1250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_Coaxial_Power J5
+U 1 1 60DDFF83
+P 7550 5650
+F 0 "J5" H 7750 5550 50  0000 R CNN
+F 1 "9vdc_in" H 7950 5650 50  0000 R CNN
+F 2 "" H 7550 5600 50  0001 C CNN
+F 3 "~" H 7550 5600 50  0001 C CNN
+	1    7550 5650
+	1    0    0    1   
+$EndComp
+$Comp
+L offboard_wiring:audio_jack_switch J2
+U 1 1 60DE3439
+P 4800 1400
+F 0 "J2" H 4300 1450 50  0000 R CNN
+F 1 "audio_ouput" H 4300 1350 50  0000 R CNN
+F 2 "" H 4800 1450 50  0000 C CNN
+F 3 "" H 4800 1450 50  0000 C CNN
+	1    4800 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L offboard_wiring:audio_jack_trs J4
+U 1 1 60DE3BAF
+P 2850 3400
+F 0 "J4" H 2350 3400 50  0000 R CNN
+F 1 "resonance_CV" H 2350 3500 50  0000 R CNN
+F 2 "" H 2850 3350 50  0000 C CNN
+F 3 "" H 2850 3350 50  0000 C CNN
+	1    2850 3400
+	1    0    0    1   
+$EndComp
+$Comp
+L offboard_wiring:SWITCH-3PDT-PTH-STOMP S1
+U 3 1 60DE7468
+P 5800 6600
+F 0 "S1" H 5750 6870 45  0000 C CNN
+F 1 "bypass_switch" H 5750 6786 45  0000 C CNN
+F 2 "STOMP_SWITCH_3PDT" H 5800 6850 20  0001 C CNN
+F 3 "" H 5800 6600 50  0001 C CNN
+F 4 "SWCH-13197" H 5750 6797 60  0001 C CNN "Field4"
+	3    5800 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L offboard_wiring:SWITCH-3PDT-PTH-STOMP S1
+U 2 1 60DE90C1
+P 5900 1250
+F 0 "S1" H 5850 1520 45  0000 C CNN
+F 1 "bypass_switch" H 5850 1436 45  0000 C CNN
+F 2 "STOMP_SWITCH_3PDT" H 5900 1500 20  0001 C CNN
+F 3 "" H 5900 1250 50  0001 C CNN
+F 4 "SWCH-13197" H 5850 1447 60  0001 C CNN "Field4"
+	2    5900 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7350 1250 6900 1250
+Wire Wire Line
+	6600 1150 6000 1150
+Wire Wire Line
+	5700 1250 5250 1250
+Wire Wire Line
+	7350 1550 7200 1550
+Wire Wire Line
+	7200 1550 7200 1400
+Wire Wire Line
+	7200 1400 7350 1400
+$Comp
+L power:GND #PWR02
+U 1 1 60E0035E
+P 7100 1650
+F 0 "#PWR02" H 7100 1400 50  0001 C CNN
+F 1 "GND" H 7105 1477 50  0000 C CNN
+F 2 "" H 7100 1650 50  0001 C CNN
+F 3 "" H 7100 1650 50  0001 C CNN
+	1    7100 1650
+	-1   0    0    -1  
+$EndComp
+Connection ~ 7200 1550
+Wire Wire Line
+	6500 3650 6500 1350
+Wire Wire Line
+	6500 1350 6600 1350
+Wire Wire Line
+	6100 3650 6100 1350
+Wire Wire Line
+	6100 1350 6000 1350
+NoConn ~ 5250 1400
+Wire Wire Line
+	3250 2350 5750 2350
+Wire Wire Line
+	5750 2350 5750 3650
+Wire Wire Line
+	5650 3650 5650 2500
+Wire Wire Line
+	5650 2500 3250 2500
+Wire Wire Line
+	3250 2750 5550 2750
+Wire Wire Line
+	5550 2750 5550 3650
+Wire Wire Line
+	5150 3650 5150 3150
+Wire Wire Line
+	5150 3150 3300 3150
+Wire Wire Line
+	5050 3650 5050 3300
+Wire Wire Line
+	5050 3300 3300 3300
+Wire Wire Line
+	4950 3650 4950 3550
+Wire Wire Line
+	4950 3550 3300 3550
+Wire Wire Line
+	7550 5450 7550 5300
+Wire Wire Line
+	7550 5300 7250 5300
+Wire Wire Line
+	7250 5300 7250 5550
+Wire Wire Line
+	7250 5550 6850 5550
+Wire Wire Line
+	7550 5750 7550 5900
+Wire Wire Line
+	7550 5900 7250 5900
+Wire Wire Line
+	7250 5900 7250 5650
+Wire Wire Line
+	7250 5650 6850 5650
+NoConn ~ 5900 6700
+Wire Wire Line
+	5900 6500 6050 6500
+Wire Wire Line
+	6050 6500 6050 6100
+Wire Wire Line
+	6050 6100 5850 6100
+Wire Wire Line
+	5850 6100 5850 5500
+Wire Wire Line
+	5850 5500 5950 5500
+Wire Wire Line
+	5950 5400 5650 5400
+Wire Wire Line
+	5650 5400 5650 6100
+Wire Wire Line
+	5650 6100 5450 6100
+Wire Wire Line
+	5450 6100 5450 6600
+Wire Wire Line
+	5450 6600 5600 6600
+Wire Wire Line
+	6200 3650 6200 1550
+Wire Wire Line
+	5250 1550 6200 1550
+Wire Wire Line
+	6600 3650 6600 1550
+Wire Wire Line
+	6600 1550 7100 1550
+Wire Wire Line
+	7100 1650 7100 1550
+Connection ~ 7100 1550
+Wire Wire Line
+	7100 1550 7200 1550
+$EndSCHEMATC

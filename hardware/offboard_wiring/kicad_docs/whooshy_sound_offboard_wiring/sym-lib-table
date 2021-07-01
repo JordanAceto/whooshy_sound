@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name offboard_wiring)(type Legacy)(uri ${KIPRJMOD}/offboard_wiring.lib)(options "")(descr ""))
+)
