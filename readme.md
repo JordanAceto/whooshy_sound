@@ -1,5 +1,6 @@
 # Effects pedal for making whooshy filter and phaser sweeping sounds
 
+## *** Work in progress ***
 ## This pedal accommodates various VCF plug-in boards, and contains rich modulation features.
 
 ### Features:
