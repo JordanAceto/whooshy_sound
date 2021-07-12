@@ -1,5 +1,9 @@
 ## Printable drill guides
 
-![](front_drill_guide/front_drill_guide.svg)
+Various file types are provided, they are all the same thing.
 
-![](jacks_drill_guide/jacks_drill_guide.svg)
+I have had the best luck printing to scale by opening up the .gbr file with kicads gerber-viewer and printing from there.
+
+Make sure to measure/compare it to the actual hardware before drilling anything!
+
+![](whooshy_sound_drill_guide.svg)
