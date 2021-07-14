@@ -2,7 +2,7 @@
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
 --|   ADC.c provides the implementation for initializing the ADC.
---|   
+--|
 --|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
@@ -36,7 +36,7 @@ void ADC1_Init(void)
     ADC1->CFGR1 = ADC_CFGR1_CONT | ADC_CFGR1_DMACFG | ADC_CFGR1_DMAEN;
 
     // select the channels to convert
-    ADC1->CHSELR = ADC_CHSELR_CHSEL3 | ADC_CHSELR_CHSEL2 | ADC_CHSELR_CHSEL1;
+    ADC1->CHSELR = ADC_CHSELR_CHSEL2 | ADC_CHSELR_CHSEL1 | ADC_CHSELR_CHSEL0;
 
     // sampling mode = 160.5 ADC clock cycles
     ADC1->SMPR |= ADC_SMPR_SMP_0 | ADC_SMPR_SMP_1 | ADC_SMPR_SMP_2;
@@ -56,7 +56,7 @@ void ADC1_Init(void)
     {
         // wait until the ADC is ready
     }
-    
+
     // start the ADC
     ADC1->CR |= ADC_CR_ADSTART;
 }

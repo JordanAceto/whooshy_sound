@@ -49,9 +49,9 @@
 */
 typedef enum ADC1_Raw_Input_Enumeration
 {
-    ADC1_RAW_INPUT_LFO_FREQ = 0u,
+    ADC1_RAW_INPUT_LFO_LEVEL = 0u,
+    ADC1_RAW_INPUT_LFO_FREQ,
     ADC1_RAW_INPUT_LFO_SHAPE,
-    ADC1_RAW_INPUT_LFO_LEVEL,
 
     NUM_ADC1_RAW_INPUTS
 } ADC1_Raw_Input_enum;
