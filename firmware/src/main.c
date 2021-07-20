@@ -20,7 +20,7 @@
 #include "ADC1.h"
 #include "lookup_tables.h"
 #include "LFO.h"
-#include "MCP4822.h"
+#include "MCP4821.h"
 #include "TIM2.h"
 
 /*
@@ -72,7 +72,7 @@ int main(void)
 
             // set the LFO frequency
             LFO_set_input(&lfo_1, LFO_INPUT_TYPE_FREQ_mHz, EXPO_MAPPING_LUT_mHz[adc1_raw_input[ADC1_RAW_INPUT_LFO_FREQ] >> 2u]);
-            
+
             // set the LFO crossfaded waveshape
             LFO_set_input(&lfo_1, LFO_INPUT_TYPE_WAVE_SCAN, adc1_raw_input[ADC1_RAW_INPUT_LFO_SHAPE] << 4u);
 
@@ -83,7 +83,7 @@ int main(void)
             const uint16_t scaled_LFO = (raw_LFO * adc1_raw_input[ADC1_RAW_INPUT_LFO_LEVEL] / (int16_t)ADC1_FULL_SCALE) + LFO_OUTPUT_MAX_VAL;
 
             // write the unsigned LFO signal via the DAC
-            MCP4822_Write(MCP4822_CHANNEL_A, MCP4822_GAIN_1x, scaled_LFO);
+            MCP4821_Write(MCP4821_GAIN_1x, scaled_LFO);
 
             // GPIOA->BSRR |= GPIO_BSRR_BR_6;
         }

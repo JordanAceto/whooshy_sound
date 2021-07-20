@@ -1,18 +1,18 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   MCP4822.h provides types and functions for interfacing with MCP4822
+--|   MCP4821.h provides types and functions for interfacing with MCP4821
 --|   12-bit SPI DACs.
 --|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   mcp4822_datasheet.pdf
+--|   mcp4821_datasheet.pdf
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MCP4822_H_INCLUDED
-#define MCP4822_H_INCLUDED
+#ifndef MCP4821_H_INCLUDED
+#define MCP4821_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -29,11 +29,11 @@
 */
 
 /*
---| NAME: MCP4822_FULL_SCALE
---| DESCRIPTION: Full scale ouptut for MCP4822 SPI DACs.
+--| NAME: MCP4821_FULL_SCALE
+--| DESCRIPTION: Full scale ouptut for MCP4821 SPI DACs.
 --| TYPE: uint32_t
 */
-#define MCP4822_FULL_SCALE (0x0FFFu)
+#define MCP4821_FULL_SCALE (0x0FFFu)
 
 /*
 --|----------------------------------------------------------------------------|
@@ -42,24 +42,14 @@
 */
 
 /*
---| NAME: MCP4822_Channel_enum
---| DESCRIPTION: enumeration for MCP4822 channel
+--| NAME: MCP4821_Gain_enum
+--| DESCRIPTION: enumeration for MCP4821 gain
 */
-typedef enum MCP4822_Channel_Enumeration
+typedef enum MCP4821_Gain_Enumeration
 {
-    MCP4822_CHANNEL_A = 0u,
-    MCP4822_CHANNEL_B = 1u
-} MCP4822_Channel_enum;
-
-/*
---| NAME: MCP4822_Gain_enum
---| DESCRIPTION: enumeration for MCP4822 gain
-*/
-typedef enum MCP4822_Gain_Enumeration
-{
-    MCP4822_GAIN_2x = 0u,
-    MCP4822_GAIN_1x = 1u
-} MCP4822_Gain_enum;
+    MCP4821_GAIN_2x = 0u,
+    MCP4821_GAIN_1x = 1u
+} MCP4821_Gain_enum;
 
 /*
 --|----------------------------------------------------------------------------|
@@ -69,13 +59,12 @@ typedef enum MCP4822_Gain_Enumeration
 
 /*------------------------------------------------------------------------------
 Function Name:
-    MCP4822_Write
+    MCP4821_Write
 
 Function Description:
-    Write the given 12 bit signal to a MCP4822 DAC via SPI.
+    Write the given 12 bit signal to a MCP4821 DAC via SPI.
 
 Parameters:
-    channel: the MCP4822 channel to write to, A or B
     gain: the gain to use, 1x or 2x (2x will cause clipping in a 3.3v system)
     value_12_bits: the 12 bit value to write (bits higher than 12 are discarded)
 
@@ -85,8 +74,6 @@ Returns:
 Assumptions/Limitations:
     Assumes that all system initialization is complete.
 ------------------------------------------------------------------------------*/
-void MCP4822_Write(MCP4822_Channel_enum  channel,
-                   MCP4822_Gain_enum     gain,
-                   uint32_t              value_12_bits);
+void MCP4821_Write(MCP4821_Gain_enum gain, uint32_t value_12_bits);
 
 #endif
