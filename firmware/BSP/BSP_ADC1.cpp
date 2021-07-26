@@ -17,6 +17,9 @@ namespace BSP::adc1
         // allow clock access
         RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 
+        // oversampling: 256x, shift right by 4, thus effective resolution = 16 bits, and enable oversampling
+        ADC1->CFGR2 |= ADC_CFGR2_OVSS_2 | ADC_CFGR2_OVSR_2 | ADC_CFGR2_OVSR_1 | ADC_CFGR2_OVSR_0 | ADC_CFGR2_OVSE;
+
         // continuous DMA mode
         ADC1->CFGR1 = ADC_CFGR1_CONT | ADC_CFGR1_DMACFG | ADC_CFGR1_DMAEN;
 
@@ -46,8 +49,8 @@ namespace BSP::adc1
         ADC1->CR |= ADC_CR_ADSTART;
     }
 
-    uint16_t getInput_ui12(Raw_Input input)
+    uint16_t getInput(Raw_Input input_type)
     {
-        return raw_input[input];
+        return raw_input[input_type];
     }
 }
