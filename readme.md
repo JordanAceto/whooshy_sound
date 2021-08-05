@@ -9,3 +9,9 @@
 - Manual frequency and resonance controls.
 - Digitally generated LFO with morphing waveshaper, smoothly crossfades from triangle to sine to square to sample & hold.
 - Analog envelope follower for when you want to quack and bwow instead of whoosh.
+
+### Status of the project:
+
+Revision | schematic | pcb layout | firmware | built and tested | safe to order boards
+------|--------------|-----------|------------|---------|---------
+0.1 | &#9745; | &#9745; | &#9745; | &#9745; | &#9745;
