@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 6 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-29"
-Rev "0"
+Date "2021-08-05"
+Rev "0.1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -223,7 +223,7 @@ L Device:R R30
 U 1 1 60DC1FCC
 P 4750 3100
 F 0 "R30" V 4543 3100 50  0000 C CNN
-F 1 "1k" V 4634 3100 50  0000 C CNN
+F 1 "1k2" V 4634 3100 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 4680 3100 50  0001 C CNN
 F 3 "~" H 4750 3100 50  0001 C CNN
 	1    4750 3100
@@ -268,8 +268,8 @@ $Comp
 L Amplifier_Operational:TL072 U7
 U 1 1 60DCC5FC
 P 6350 3200
-F 0 "U7" H 6350 3550 50  0000 C CNN
-F 1 "TL072" H 6350 3450 50  0000 C CNN
+F 0 "U7" H 6200 3600 50  0000 C CNN
+F 1 "TL072" H 6200 3500 50  0000 C CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 6350 3200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tl071.pdf" H 6350 3200 50  0001 C CNN
 	1    6350 3200
@@ -365,8 +365,8 @@ $Comp
 L Device:R R32
 U 1 1 60E16310
 P 7750 3100
-F 0 "R32" V 7650 2950 50  0000 C CNN
-F 1 "100k" V 7634 3100 50  0000 C CNN
+F 0 "R32" V 7650 2900 50  0000 C CNN
+F 1 "100k" V 7650 3100 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 7680 3100 50  0001 C CNN
 F 3 "~" H 7750 3100 50  0001 C CNN
 	1    7750 3100
@@ -376,7 +376,7 @@ $Comp
 L Device:R R33
 U 1 1 60E17797
 P 7750 3300
-F 0 "R33" V 7850 3150 50  0000 C CNN
+F 0 "R33" V 7850 3100 50  0000 C CNN
 F 1 "100k" V 7850 3300 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 7680 3300 50  0001 C CNN
 F 3 "~" H 7750 3300 50  0001 C CNN
@@ -390,7 +390,7 @@ Wire Wire Line
 Wire Wire Line
 	6800 3200 7450 3200
 Connection ~ 6800 3200
-Text Notes 6700 3150 0    50   ~ 0
+Text Notes 6500 3050 0    79   ~ 0
 trim for approx.\nrange: [0v, 2v]
 Wire Wire Line
 	7450 3100 7450 3200
@@ -413,19 +413,17 @@ Wire Wire Line
 	9650 3200 9400 3200
 Wire Wire Line
 	9400 2750 9400 3200
-Text Notes 7400 5400 0    50   ~ 0
+Text Notes 6850 5550 0    79   ~ 0
 When the switch is set such that the opamp\nis inverting, a negative bias voltage is also \napplied which "pushes up" the signal. This\nkeeps the signal voltage positive in either\nnormal or inverting modes.
-Wire Wire Line
-	9650 3850 9650 3750
 $Comp
 L power:GND #PWR051
 U 1 1 60E6CC94
-P 9650 3850
-F 0 "#PWR051" H 9650 3600 50  0001 C CNN
-F 1 "GND" H 9655 3677 50  0000 C CNN
-F 2 "" H 9650 3850 50  0001 C CNN
-F 3 "" H 9650 3850 50  0001 C CNN
-	1    9650 3850
+P 10000 5900
+F 0 "#PWR051" H 10000 5650 50  0001 C CNN
+F 1 "GND" H 10005 5727 50  0000 C CNN
+F 2 "" H 10000 5900 50  0001 C CNN
+F 3 "" H 10000 5900 50  0001 C CNN
+	1    10000 5900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -435,7 +433,7 @@ L Device:R_POT RV7
 U 1 1 60E610B4
 P 9650 3600
 F 0 "RV7" H 9580 3554 50  0000 R CNN
-F 1 "10k" H 9580 3645 50  0000 R CNN
+F 1 "100k" H 9580 3645 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical" H 9650 3600 50  0001 C CNN
 F 3 "~" H 9650 3600 50  0001 C CNN
 	1    9650 3600
@@ -531,7 +529,7 @@ F 3 "~" H 8000 4350 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9800 3600 10000 3600
-Text Notes 9950 3500 0    50   ~ 0
+Text Notes 9800 3550 0    79   ~ 0
 approx. range: [0v, 2v]
 Text HLabel 10000 3600 2    50   Output ~ 0
 envelope_follower_out
@@ -550,4 +548,75 @@ NoConn ~ 7900 4550
 Wire Wire Line
 	8700 4650 8700 4550
 NoConn ~ 8500 4550
+$Comp
+L Device:R R40
+U 1 1 60F4FA0F
+P 10000 5550
+F 0 "R40" H 9930 5504 50  0000 R CNN
+F 1 "1k2" H 9930 5595 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 9930 5550 50  0001 C CNN
+F 3 "~" H 10000 5550 50  0001 C CNN
+	1    10000 5550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R12
+U 1 1 60F54D90
+P 10000 4950
+F 0 "R12" H 9930 4904 50  0000 R CNN
+F 1 "2k7" H 9930 4995 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 9930 4950 50  0001 C CNN
+F 3 "~" H 10000 4950 50  0001 C CNN
+	1    10000 4950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C38
+U 1 1 60F564CD
+P 10450 5550
+F 0 "C38" H 10565 5596 50  0000 L CNN
+F 1 "10u" H 10565 5505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 10488 5400 50  0001 C CNN
+F 3 "~" H 10450 5550 50  0001 C CNN
+	1    10450 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10000 5700 10000 5800
+Wire Wire Line
+	10000 5800 10450 5800
+Wire Wire Line
+	10450 5800 10450 5700
+Connection ~ 10000 5800
+Wire Wire Line
+	10000 5800 10000 5900
+Wire Wire Line
+	10450 5400 10450 5300
+Wire Wire Line
+	10450 5300 10000 5300
+Wire Wire Line
+	10000 5300 10000 5400
+Wire Wire Line
+	10000 5300 10000 5200
+Connection ~ 10000 5300
+Wire Wire Line
+	9650 5200 10000 5200
+Wire Wire Line
+	9650 3750 9650 5200
+Connection ~ 10000 5200
+Wire Wire Line
+	10000 5200 10000 5100
+$Comp
+L power:+3.3VA #PWR038
+U 1 1 60F6E10C
+P 10000 4800
+F 0 "#PWR038" H 10000 4650 50  0001 C CNN
+F 1 "+3.3VA" H 10015 4973 50  0000 C CNN
+F 2 "" H 10000 4800 50  0001 C CNN
+F 3 "" H 10000 4800 50  0001 C CNN
+	1    10000 4800
+	1    0    0    -1  
+$EndComp
+Text Notes 9700 5200 0    79   ~ 0
++1v
 $EndSCHEMATC

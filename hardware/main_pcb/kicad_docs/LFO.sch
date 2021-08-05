@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-29"
-Rev "0"
+Date "2021-08-05"
+Rev "0.1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -75,7 +75,7 @@ L Device:R R36
 U 1 1 60D19A49
 P 4800 3350
 F 0 "R36" V 4700 3200 50  0000 C CNN
-F 1 "10k" V 4684 3350 50  0000 C CNN
+F 1 "10k" V 4700 3350 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 4730 3350 50  0001 C CNN
 F 3 "~" H 4800 3350 50  0001 C CNN
 	1    4800 3350
@@ -156,28 +156,10 @@ Wire Wire Line
 	6900 3750 6900 3850
 Wire Wire Line
 	6900 3850 6050 3850
-$Comp
-L power:GND #PWR065
-U 1 1 60D2D0BF
-P 6950 3400
-F 0 "#PWR065" H 6950 3150 50  0001 C CNN
-F 1 "GND" V 6955 3272 50  0000 R CNN
-F 2 "" H 6950 3400 50  0001 C CNN
-F 3 "" H 6950 3400 50  0001 C CNN
-	1    6950 3400
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	7150 3350 7050 3350
 Wire Wire Line
-	7050 3350 7050 3400
-Wire Wire Line
 	7050 3450 7150 3450
-Wire Wire Line
-	7050 3400 6950 3400
-Connection ~ 7050 3400
-Wire Wire Line
-	7050 3400 7050 3450
 $Comp
 L Device:R_POT RV8
 U 1 1 60D34F7F
@@ -459,6 +441,30 @@ Connection ~ 8400 3550
 Wire Wire Line
 	8400 3550 8250 3550
 NoConn ~ 6050 3750
-Text Notes 8550 3500 0    50   ~ 0
+Text Notes 8550 3500 0    79   ~ 0
 range: [0v, 2v]
+$Comp
+L power:GND #PWR065
+U 1 1 60D2D0BF
+P 7050 3450
+F 0 "#PWR065" H 7050 3200 50  0001 C CNN
+F 1 "GND" V 7055 3322 50  0000 R CNN
+F 2 "" H 7050 3450 50  0001 C CNN
+F 3 "" H 7050 3450 50  0001 C CNN
+	1    7050 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0104
+U 1 1 60F980E6
+P 7050 3250
+F 0 "#PWR0104" H 7050 3100 50  0001 C CNN
+F 1 "+3.3V" H 6950 3400 50  0000 C CNN
+F 2 "" H 7050 3250 50  0001 C CNN
+F 3 "" H 7050 3250 50  0001 C CNN
+	1    7050 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7050 3250 7050 3350
 $EndSCHEMATC

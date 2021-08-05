@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-29"
-Rev "0"
+Date "2021-08-05"
+Rev "0.1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -32,7 +32,7 @@ L Device:C C2
 U 1 1 60D906DD
 P 6700 3750
 F 0 "C2" V 6448 3750 50  0000 C CNN
-F 1 "10u" V 6539 3750 50  0000 C CNN
+F 1 "10u np" V 6539 3750 50  0000 C CNN
 F 2 "Capacitor_THT:C_Radial_D6.3mm_H11.0mm_P2.50mm" H 6738 3600 50  0001 C CNN
 F 3 "~" H 6700 3750 50  0001 C CNN
 	1    6700 3750
@@ -43,7 +43,7 @@ L Device:R R3
 U 1 1 60D90BBF
 P 6300 3750
 F 0 "R3" V 6093 3750 50  0000 C CNN
-F 1 "1k" V 6184 3750 50  0000 C CNN
+F 1 "1k2" V 6184 3750 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 6230 3750 50  0001 C CNN
 F 3 "~" H 6300 3750 50  0001 C CNN
 	1    6300 3750

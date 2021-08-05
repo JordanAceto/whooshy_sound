@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 7 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-29"
-Rev "0"
+Date "2021-08-05"
+Rev "0.1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -22,7 +22,7 @@ L Device:R R14
 U 1 1 60CB6B42
 P 5700 4950
 F 0 "R14" H 5770 4996 50  0000 L CNN
-F 1 "18k" H 5770 4905 50  0000 L CNN
+F 1 "27k" H 5770 4905 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 5630 4950 50  0001 C CNN
 F 3 "~" H 5700 4950 50  0001 C CNN
 	1    5700 4950
@@ -64,23 +64,23 @@ $EndComp
 $Comp
 L Device:R R11
 U 1 1 60F682DF
-P 5300 2950
-F 0 "R11" V 5093 2950 50  0000 C CNN
-F 1 "220k" V 5184 2950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 5230 2950 50  0001 C CNN
-F 3 "~" H 5300 2950 50  0001 C CNN
-	1    5300 2950
+P 4900 3750
+F 0 "R11" V 4693 3750 50  0000 C CNN
+F 1 "220k" V 4784 3750 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4830 3750 50  0001 C CNN
+F 3 "~" H 4900 3750 50  0001 C CNN
+	1    4900 3750
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_POT RV2
 U 1 1 60F6D28A
-P 3750 2950
-F 0 "RV2" H 3680 2904 50  0000 R CNN
-F 1 "10k" H 3680 2995 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical" H 3750 2950 50  0001 C CNN
-F 3 "~" H 3750 2950 50  0001 C CNN
-	1    3750 2950
+P 3350 3750
+F 0 "RV2" H 3280 3704 50  0000 R CNN
+F 1 "10k" H 3280 3795 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical" H 3350 3750 50  0001 C CNN
+F 3 "~" H 3350 3750 50  0001 C CNN
+	1    3350 3750
 	1    0    0    1   
 $EndComp
 $Comp
@@ -88,7 +88,7 @@ L Device:R R13
 U 1 1 60F720B7
 P 5300 4700
 F 0 "R13" V 5093 4700 50  0000 C CNN
-F 1 "82k" V 5184 4700 50  0000 C CNN
+F 1 "68k" V 5184 4700 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" V 5230 4700 50  0001 C CNN
 F 3 "~" H 5300 4700 50  0001 C CNN
 	1    5300 4700
@@ -97,12 +97,12 @@ $EndComp
 $Comp
 L power:GND #PWR037
 U 1 1 60F73B74
-P 3750 3650
-F 0 "#PWR037" H 3750 3400 50  0001 C CNN
-F 1 "GND" H 3755 3477 50  0000 C CNN
-F 2 "" H 3750 3650 50  0001 C CNN
-F 3 "" H 3750 3650 50  0001 C CNN
-	1    3750 3650
+P 3350 4450
+F 0 "#PWR037" H 3350 4200 50  0001 C CNN
+F 1 "GND" H 3355 4277 50  0000 C CNN
+F 2 "" H 3350 4450 50  0001 C CNN
+F 3 "" H 3350 4450 50  0001 C CNN
+	1    3350 4450
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -117,13 +117,13 @@ F 3 "" H 5700 5100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3250 2800 3250 2650
+	2850 3600 2850 3450
 Wire Wire Line
-	3250 2650 3750 2650
+	2850 3450 3350 3450
 Wire Wire Line
-	3750 2650 3750 2800
+	3350 3450 3350 3600
 Wire Wire Line
-	3900 2950 4050 2950
+	3500 3750 3650 3750
 Wire Wire Line
 	6000 3350 5700 3350
 Wire Wire Line
@@ -158,79 +158,44 @@ Connection ~ 5700 4700
 $Comp
 L Device:C C28
 U 1 1 60F8C8BB
-P 4050 3300
-F 0 "C28" H 4165 3346 50  0000 L CNN
-F 1 "100n" H 4165 3255 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4088 3150 50  0001 C CNN
-F 3 "~" H 4050 3300 50  0001 C CNN
-	1    4050 3300
+P 3650 4100
+F 0 "C28" H 3765 4146 50  0000 L CNN
+F 1 "100n" H 3765 4055 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3688 3950 50  0001 C CNN
+F 3 "~" H 3650 4100 50  0001 C CNN
+	1    3650 4100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3750 3100 3750 3550
+	3350 3900 3350 4350
 Wire Wire Line
-	4050 3450 4050 3550
+	3650 4250 3650 4350
 Wire Wire Line
-	4050 3550 3750 3550
-Connection ~ 3750 3550
+	3650 4350 3350 4350
+Connection ~ 3350 4350
 Wire Wire Line
-	3750 3550 3750 3650
+	3350 4350 3350 4450
 Wire Wire Line
-	4050 3150 4050 2950
-Connection ~ 4050 2950
+	3650 3950 3650 3750
+Connection ~ 3650 3750
 Wire Wire Line
-	4050 2950 5150 2950
-$Comp
-L Device:R R12
-U 1 1 6102ECB0
-P 5300 3750
-F 0 "R12" V 5093 3750 50  0000 C CNN
-F 1 "560k" V 5184 3750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" V 5230 3750 50  0001 C CNN
-F 3 "~" H 5300 3750 50  0001 C CNN
-	1    5300 3750
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5450 3750 5550 3750
+	3650 3750 4750 3750
 Connection ~ 5700 3750
-Wire Wire Line
-	5550 3750 5550 2950
-Wire Wire Line
-	5450 2950 5550 2950
-Connection ~ 5550 3750
-Wire Wire Line
-	5550 3750 5700 3750
-Wire Wire Line
-	5050 3850 5050 3750
-Wire Wire Line
-	5050 3750 5150 3750
-Text Notes 6750 3750 0    50   ~ 0
-approximate useful range: [0v .. +2v]
-Text Notes 4400 2900 0    50   ~ 0
-range: [-5v .. 0v]
-Text Notes 4300 4600 0    50   ~ 0
-range: [0v .. +5v]
+Text Notes 6750 3750 0    79   ~ 0
+approximate useful range: [0v, +2v]
+Text Notes 3700 3700 0    79   ~ 0
+range: [-5v, 0v]
+Text Notes 4150 4600 0    79   ~ 0
+range: [0v, +5v]
 $Comp
 L power:-5V #PWR036
 U 1 1 6126C044
-P 3250 2800
-F 0 "#PWR036" H 3250 2900 50  0001 C CNN
-F 1 "-5V" H 3265 2973 50  0000 C CNN
-F 2 "" H 3250 2800 50  0001 C CNN
-F 3 "" H 3250 2800 50  0001 C CNN
-	1    3250 2800
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:-5V #PWR038
-U 1 1 6126BC27
-P 5050 3850
-F 0 "#PWR038" H 5050 3950 50  0001 C CNN
-F 1 "-5V" H 5065 4023 50  0000 C CNN
-F 2 "" H 5050 3850 50  0001 C CNN
-F 3 "" H 5050 3850 50  0001 C CNN
-	1    5050 3850
+P 2850 3600
+F 0 "#PWR036" H 2850 3700 50  0001 C CNN
+F 1 "-5V" H 2865 3773 50  0000 C CNN
+F 2 "" H 2850 3600 50  0001 C CNN
+F 3 "" H 2850 3600 50  0001 C CNN
+	1    2850 3600
 	-1   0    0    1   
 $EndComp
 Text HLabel 1550 6950 2    50   Output ~ 0
@@ -292,8 +257,10 @@ Wire Wire Line
 Connection ~ 1550 5900
 Wire Wire Line
 	1550 6950 1550 6700
-Text Notes 1900 6450 0    50   ~ 0
+Text Notes 1900 6450 0    79   ~ 0
 Adjust such that +5v is developed\nacross an expression pedal connected\nvia a Tip-Ring-Sleeve jack.\n\nIf an expression pedal is not needed, \nsimply do not fit the trim pot and resistor.
-Text Notes 3800 2750 0    50   ~ 0
+Text Notes 3400 3550 0    50   ~ 0
 manual\nresonance
+Wire Wire Line
+	5050 3750 5700 3750
 $EndSCHEMATC

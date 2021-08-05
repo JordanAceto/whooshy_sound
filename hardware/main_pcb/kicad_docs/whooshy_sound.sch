@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 8
 Title "Whooshy Sound Filter Pedal"
-Date "2021-06-29"
-Rev "0"
+Date "2021-08-05"
+Rev "0.1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -432,9 +432,9 @@ F 3 "~" H 8050 5300 50  0001 C CNN
 	1    8050 5300
 	-1   0    0    -1  
 $EndComp
-Text Notes 5300 1500 0    118  ~ 0
+Text Notes 5300 1450 0    118  ~ 0
 VCF Plug-In \nBoard Port
-Text Notes 5300 1750 0    50   ~ 0
+Text Notes 4750 1750 0    79   ~ 0
 For various compatible VCF boards visit:\ngithub.com/JordanAceto/VCF_plug_in_boards
 Wire Wire Line
 	6750 4250 6750 4300
