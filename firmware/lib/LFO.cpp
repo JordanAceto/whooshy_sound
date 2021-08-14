@@ -91,7 +91,7 @@ void LFO::updateSquare(void)
 void LFO::updateRandom(void)
 {
     // the LFO "feels" better if the random signal updates at twice the base frequency
-    const uint32_t double_time_accum = phase_accumulator << 2u;
+    const uint32_t double_time_accum = phase_accumulator << 1u;
     static uint32_t last_double_time_accum;
 
     const bool accum_rolled_over = double_time_accum < last_double_time_accum;
