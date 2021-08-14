@@ -52,25 +52,25 @@ parser.add_argument(
 
 parser.add_argument(
     '--EXPO_MAP_CURVE',
-    help='the amount of curvature for the exponential mapping LUT, range [0 .. 100], default 50 for "pretty curvy"',
+    help='the amount of curvature for the exponential mapping LUT, range [0 .. 100], default "pretty curvy"',
     nargs='?',
-    default=50,
+    default=25,
     type=int
 )
 
 parser.add_argument(
     '--EXPO_MAP_MIN_mHz',
-    help='the minimum value of the exponential mapping LUT in millihertz, default ~30 second cycle min',
+    help='the minimum value of the exponential mapping LUT in millihertz, default ~10 second cycle min',
     nargs='?',
-    default=1000//30,
+    default=1000//10,
     type=float
 )
 
 parser.add_argument(
     '--EXPO_MAP_MAX_mHz',
-    help='the maximum value of the exponential mapping LUT in millihertz, default 50Hz max',
+    help='the maximum value of the exponential mapping LUT in millihertz, default 10Hz max',
     nargs='?',
-    default=50000,
+    default=10000,
     type=float
 )
 
