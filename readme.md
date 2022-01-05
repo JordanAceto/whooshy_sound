@@ -4,6 +4,10 @@
 
 ![](./hardware/pics/whooshy_sound_angle.JPG?raw=true "whooshy sound pedal")
 
+### [SCHEMATIC](https://github.com/JordanAceto/whooshy_sound/blob/main/hardware/main_pcb/construction_docs/whooshy_sound_main_pcb_schematic.pdf)
+
+---
+
 ### Features:
 - Guitar pedal style stomp box.
 - Can accept a wide variety of [filter plug-in boards](https://github.com/JordanAceto/VCF_plug_in_boards).
@@ -13,6 +17,8 @@
 - Manual frequency and resonance controls.
 - Digitally generated LFO with morphing waveshaper, smoothly crossfades from triangle to sine to square to sample & hold.
 - Analog envelope follower for when you want to quack and bwow instead of whoosh.
+
+---
 
 ### Status of the project:
 
